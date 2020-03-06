@@ -27,7 +27,7 @@ gen:
 	docker run --rm \
 	-v ${PWD}:/data \
 	--user=$(shell id -u) \
-	-w /data thrift:0.11 \
+	-w /data thrift:0.12 \
 	thrift -strict --verbose --out . -r --gen "go:package_prefix=${PACKAGE_NAME}/,thrift_import=github.com/apache/thrift/lib/go/thrift" example.thrift
 
 all: build gen dep test lint
