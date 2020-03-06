@@ -127,12 +127,8 @@ func NewTClientPoolWithOptions(options TClientPoolOptions) *TClientPool {
 
 // NewTClientPool initializes new TClientPool by TClientFactory and maxTotal of object in pool.
 func NewTClientPool(f TClientFactory, maxTotal int) *TClientPool {
-	ctx := context.Background()
-
-	p := pool.NewObjectPoolWithDefaultConfig(ctx, &pooledObjectFactory{f, 0})
-	p.Config.MaxTotal = maxTotal
-	p.Config.MaxIdle = maxTotal
-	p.Config.TestOnBorrow = true
-
-	return &TClientPool{p}
+	return NewTClientPoolWithOptions(TClientPoolOptions{
+		Factory:  f,
+		MaxTotal: maxTotal,
+	})
 }
